@@ -13,17 +13,25 @@ function bomb {
 [[ -z `pgrep airodump-ng` ]] && bomb airodump-ng is not running
 [[ ! -d /var/log/stations/ ]] && bomb folder /var/log/stations/ does not exist
 
-date=`date +%Y-%m-%d-%H:%M:%S`
+day=`date +%Y-%m-%d`
 
 # we're interested in the last 10 minutes activity
-hour=`date +"%Y-%m-%d %H"`
+lasthour=`date +%H`
 (( lastten = `date +%M` - 10 ))
 
-# 11 - 10 = 1 instead of 01 so...
-(( lastten < 10 )) && lastten=00
+if (( lastten < 0 )); then
+	# we need to go backwards an hour
+       	lastten=50
+	(( lasthour = lasthour - 1 ))
+	# 09 - 1 = 8 instead of 08 so...
+	(( lasthour < 10 )) && lasthour=0$lasthour
+elif (( lastten < 10 )); then
+	# 11 - 10 = 1 instead of 01 so...
+       	lastten=00
+fi
 
 # strip the last digit so we deal with tens of minutes
-tens=`echo $hour:$lastten | sed 's/[0-9]$//'`
+tens=`echo $lasthour:$lastten | sed 's/[0-9]$//'`
 
 stationseen=`sed -n '/^Station MAC/,$p' /var/log/stations-01.csv | sed '1d; /^[[:space:]]*$/d'`
 
@@ -31,7 +39,5 @@ stationalive=`echo "$stationseen" | grep "$tens"`
 
 stationcount=`echo "$stationalive" | wc -l`
 
-cat >> /var/log/stations/stations.csv <<EOF9
-$date, $stationcount
-EOF9
+echo $day $lasthour:$lastten, $stationcount >> /var/log/stations/stations.csv
 
