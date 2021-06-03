@@ -1,0 +1,258 @@
+:root {
+    --col-width: 3.5rem;
+    --row-width: 3.5rem;
+    --col-width-big: 2.5rem;
+    --row-width-big: 2.5rem;
+    --col-width-medium: 2rem;
+    --row-width-medium: 2rem;
+    --col-width-small: 1rem;
+    --row-width-small: 1rem;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: visible;
+    font-size: 1.3rem;
+
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.box {
+    width: var(--col-width);
+    height: var(--row-width);
+    background-color: #dedede; /* Box color */
+}
+
+p {
+    padding: 0rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    border-color: white;
+    box-shadow: 0;
+}
+
+#heatmap .month, .week {
+    display: none;
+    grid-row: repeat(13, 1fr var(--row-width));
+    grid-gap: 0.2rem;
+
+    padding: 0;
+    overflow: visible;
+}
+
+#heatmap .month {
+    width: 105rem;
+}
+
+#heatmap .week {
+    width: 70rem;
+}
+
+#heatmap .month.active, .week.active {
+    display: grid!important;
+}
+
+#heatmap .day {
+    display: flex;
+    width: var(--col-width);
+    justify-content: center;
+    padding-left: 0;
+}
+
+#heatmap .row {
+    display: grid;
+    grid: 1fr / 2% repeat(31, 1fr var(--col-width));
+    grid-gap: 0.2rem;
+    line-height: var(--row-width);
+}
+
+#heatmap .week .row .box:first-of-type {
+    margin-left: 1rem;
+}
+
+#heatmap .week .row .day:first-of-type {
+    margin-left: 1rem;
+}
+
+.toolbar .type-menu, .date {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.toolbar .type-menu .menu-item {
+    padding: 1rem;
+    cursor: pointer;
+    border-bottom: transparent solid 0.2rem;
+}
+
+.toolbar .type-menu .menu-item:hover {
+    border-bottom-color: #5496ff;
+}
+
+.toolbar .type-menu .menu-item.active {
+    border-bottom-color: #5496ff;
+}
+
+.toolbar .date {
+    padding: 1rem;
+}
+
+.toolbar .date .btn {
+    margin: 2rem;
+    padding: 1rem 2rem;
+    border: #4d92ff solid 0.2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.toolbar .date .btn:hover {
+    background-color: #4d92ff;
+}
+
+.toolbar .date .year, .month {
+    margin: 1rem;
+}
+
+.color-schema {
+    margin-top: 4rem;
+}
+
+.color-schema .color {
+    line-height: var(--row-width);
+}
+
+.color-schema .color p{
+    margin: 0.2rem;
+}
+
+.color-schema .color .box-red, .box-violet, .box-blue, .box-light_blue, .box-aqua{
+    width: var(--col-width);
+    height: var(--row-width);
+}
+
+.color-schema .color .box-red {
+    background-color: #ff006a;
+}
+.color-schema .color .box-violet {
+    background-color: #dd45ff;
+}
+
+.color-schema .color .box-blue {
+    background-color: #2eafff;
+}
+
+.color-schema .color .box-light_blue {
+    background-color: #8fd4ff;
+}
+
+.color-schema .color .box-aqua {
+    background-color: #d9f0ff;
+}
+
+@media (max-width: 992px) {
+    #heatmap .month {
+        position: relative;
+        bottom: 3rem;
+        left: 14rem;
+        width: 94rem;
+    }
+
+    #heatmap .week {
+        position: relative;
+        left: 5rem;
+    }
+
+    .color-schema .color {
+        line-height: var(--row-width);
+    }
+
+    .color-schema {
+        position: relative;
+        left: 27rem;
+        width: 15rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #heatmap .month {
+        transform: scale(0.9, 0.9);
+        position: relative;
+        bottom: 6rem;
+        left: 20rem;
+        width: 94rem;
+    }
+
+    #heatmap .week {
+        position: relative;
+        left: 5rem;
+    }
+
+    .color-schema .color {
+        line-height: var(--row-width);
+    }
+
+    .color-schema {
+        position: relative;
+        left: 27rem;
+        width: 15rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #heatmap .month {
+        transform: scale(0.8, 0.8);
+        position: relative;
+        bottom: 6rem;
+        left: 27rem;
+        width: 94rem;
+    }
+
+    #heatmap .week {
+        position: relative;
+        left: 5rem;
+    }
+
+    .color-schema .color {
+        line-height: var(--row-width);
+    }
+
+    #heatmap .week {
+        position: relative;
+        left: 5rem;
+    }
+
+    .color-schema {
+        position: relative;
+        left: 27rem;
+        width: 15rem;
+    }
+}
