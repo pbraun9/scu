@@ -1,3 +1,12 @@
+let currentDate = new Date();
+const numberOfDays = 31;
+const timeFrom = 8;
+const timeTo = 22;
+const step = 60;
+const currentYear = 2021;
+const currentMonth = 4;
+const fileName = '2021-03-11-sample.csv';
+
 class HeatMap {
     constructor(numberOfDays, timeFrom, timeTo, step) {
         this._numberOfDays = numberOfDays;
@@ -38,7 +47,7 @@ class HeatMap {
         }
 
         let htmlBoxesWeek = '';
-        for (let j = 0; j <= timeCount-1; j++) {
+        for (let j = 0; j <= timeCount - 1; j++) {
             htmlBoxesWeek += '<div class="box"></div>';
         }
 
@@ -49,7 +58,7 @@ class HeatMap {
         minutes = 0;
         while (hour <= this._timeTo) {
             currentTime.setHours(hour, minutes);
-            heatmap.querySelector('#heatmap div.month').insertAdjacentHTML('beforeend', `<div class="row"><p>${currentTime.toLocaleTimeString([],
+            heatmap.querySelector('#heatmap div.month').insertAdjacentHTML('beforeend', `<div class="row"><p>${currentTime.toLocaleTimeString(['en-GB'],
                 { hour: '2-digit', minute: '2-digit' })}</p>${htmlBoxesMonth}</div>`);
 
             minutes += this._step;
@@ -126,7 +135,7 @@ class HeatMap {
                 filteredDates.forEach(date => totalUsers += date.Users);
                 this.boxColoring(row, boxNumber, totalUsers, heatmap_rows);
             }
-            
+
             if (currentTime.getHours() >= this._timeTo) {
                 if (row >= 7) break;
                 day++;
@@ -144,6 +153,7 @@ class HeatMap {
 
     boxColoring(row, boxNumber, total_users, heatmap_rows) {
         let boxMonth = heatmap_rows[row].querySelectorAll('div.box')[boxNumber];
+        console.log(boxMonth)
 
         if (total_users <= this.color_llb) {
             boxMonth.style.cssText = 'background-color: #d9f0ff;'; // light light blue
@@ -196,20 +206,12 @@ class HeatMap {
 }
 
 async function ready() {
-    let currentDate = new Date();
-
-
-    const numberOfDays = 31;
-    const timeFrom = 8;
-    const timeTo = 22;
-    const step = 60;
-
     const heatMap = new HeatMap(numberOfDays, timeFrom, timeTo, step);
     heatMap.generateHeatMapTemplate();
-    let data = parseFile(await readFile('csv/2021-03-11-sample.csv'));
+    let data = parseFile(await readFile('csv/'+ fileName));
     heatMap.setColors(data);
-    heatMap.boxDataProcessing_Month(data, currentDate.getFullYear(), currentDate.getMonth());
-    heatMap.boxDataProcessing_Week(data, currentDate.getFullYear(), currentDate.getMonth());
+    heatMap.boxDataProcessing_Month(data, currentYear, currentMonth);
+    heatMap.boxDataProcessing_Week(data, currentYear, currentMonth);
 
     const menuItems = document.querySelectorAll('div.menu-item');
     const heatmapMonth = document.querySelector('#heatmap div.month');

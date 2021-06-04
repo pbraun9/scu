@@ -1,6 +1,6 @@
 :root {
-    --col-width: 3.5rem;
-    --row-width: 3.5rem;
+    --col-width: 3rem;
+    --row-width: 3rem;
     --col-width-big: 2.5rem;
     --row-width-big: 2.5rem;
     --col-width-medium: 2rem;
@@ -26,7 +26,7 @@ html {
     overflow: visible;
     font-size: 1.3rem;
 
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
 }
 
 .box {
